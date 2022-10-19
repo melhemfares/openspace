@@ -56,3 +56,9 @@ Run the client server (terminal #2)
 **Server:** Node.js, Express
 
 **Database:** MongoDB
+
+
+## Screenshots
+
+![App Screenshot](openspace-homepage.png)
+
