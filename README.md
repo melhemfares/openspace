@@ -39,7 +39,7 @@ JWT_LIFETIME=
 Run the backend server (terminal #1)
 
 ```bash
-  cd api -> nodemon start
+  cd api -> node app.js
 ```
 
 Run the client server (terminal #2)
