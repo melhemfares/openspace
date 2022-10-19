@@ -20,7 +20,7 @@ Once I feel that the app is fully flushed out, I'll deploy it for public use. St
 Clone the project
 
 ```bash
-  git clone https://github.com/melhemfares/ht6-2022.git
+  git clone https://github.com/melhemfares/openspace.git
 ```
 
 Install dependencies (make sure to do this in both directories)
