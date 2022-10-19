@@ -60,5 +60,7 @@ Run the client server (terminal #2)
 
 ## Screenshots
 
-![App Screenshot](openspace-homepage.png)
+![Homepage](openspace-homepage.png)
+
+![Free Time Finder](openspace-freetime.png)
 
