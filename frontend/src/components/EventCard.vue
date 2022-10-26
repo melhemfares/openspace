@@ -19,8 +19,6 @@ export default {
   data() {
     return {
       compKey: 0,
-      earliestTime: 24,
-      latestTime: 0
     }
   },
   methods: {
@@ -129,12 +127,6 @@ export default {
 
       return `${endHour}:${endMinute}${suffix}`
     },
-    // cardSort() {
-
-    //   const event = this.event
-
-    //   console.log(event)
-    // },
   }
 }
 </script>

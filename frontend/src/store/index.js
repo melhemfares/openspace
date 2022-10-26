@@ -17,9 +17,9 @@ export default createStore({
     events: [],
     toggle: false,
     toggleEvent: '',
-    hoursShown: 24,
+    hoursShown: 12,
     earliest: 0,
-    latest: 24,
+    latest: 12,
     loading: false
   },
   getters: {
