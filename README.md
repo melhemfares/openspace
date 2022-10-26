@@ -20,7 +20,7 @@ Once I feel that the app is fully flushed out, I'll deploy it for public use. St
 Clone the project
 
 ```bash
-  git clone https://github.com/melhemfares/ht6-2022.git
+  git clone https://github.com/melhemfares/openspace.git
 ```
 
 Install dependencies (make sure to do this in both directories)
@@ -39,7 +39,7 @@ JWT_LIFETIME=
 Run the backend server (terminal #1)
 
 ```bash
-  cd api -> nodemon start
+  cd api -> node app.js
 ```
 
 Run the client server (terminal #2)
@@ -56,3 +56,11 @@ Run the client server (terminal #2)
 **Server:** Node.js, Express
 
 **Database:** MongoDB
+
+
+## Screenshots
+
+![Homepage](openspace-homepage.png)
+
+![Free Time Finder](openspace-freetime.png)
+
