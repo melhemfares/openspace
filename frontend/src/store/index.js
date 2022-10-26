@@ -16,7 +16,11 @@ export default createStore({
     event: {},
     events: [],
     toggle: false,
-    toggleEvent: ''
+    toggleEvent: '',
+    hoursShown: 24,
+    earliest: 0,
+    latest: 24,
+    loading: false
   },
   getters: {
   },
@@ -50,6 +54,21 @@ export default createStore({
     },
     ADD_EVENTS(state, events) {
       state.event.push(events)
+    },
+    UPDATE_HOURS_SHOWN(state, hoursShown) {
+      state.hoursShown = hoursShown
+    },
+    UPDATE_EARLIEST(state, earliest) {
+      state.earliest = earliest
+    },
+    UPDATE_LATEST(state, latest) {
+      state.latest = latest
+    },
+    BEGIN_LOADING(state) {
+      state.loading = true
+    },
+    STOP_LOADING(state) {
+      state.loading = false
     }
   },
   actions: {
@@ -59,10 +78,28 @@ export default createStore({
     toggleEvent({ commit }, toggleEvent) {
       commit('TOGGLE_EVENT', toggleEvent)
     },
+    updateHoursShown({ commit }, hoursShown) {
+      commit('UPDATE_HOURS_SHOWN', hoursShown)
+    },
+    updateLatest({ commit }, latest) {
+      commit('UPDATE_LATEST', latest)
+    },
+    updateEarliest({ commit }, earliest) {
+      commit('UPDATE_EARLIEST', earliest)
+    },
+    beginLoading({ commit }) {
+      commit('BEGIN_LOADING')
+    },
+    stopLoading({ commit }) {
+      commit('STOP_LOADING')
+    },
     createUser({ commit }, user) {
       return EventService.registerUser(user)
         .then(() => {
           commit('GET_USER', user)
+          commit('UPDATE_HOURS_SHOWN', 24)
+          commit('UPDATE_EARLIEST', 0)
+          commit('UPDATE_LATEST', 24)
           commit('CREATE_MSG', 'Sucessfully registered')
           router.push({
             name: 'login'

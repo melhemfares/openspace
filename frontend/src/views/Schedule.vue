@@ -26,17 +26,8 @@
       :events="events"
     />
   </div>
-  <!-- <div class="edit-event">
-    <EditEvent 
-      @wheel.prevent
-      @touchmove.prevent
-      @scroll.prevent
-      v-if="toggleEditingEvent"
-      :events="events"
-    />
-  </div> -->
   <div class="screen-dim" v-if="toggle"></div>
-  <div class="schedule-main">
+  <div v-if="!isLoading" class="schedule-main">
     <div class="schedule-options">
       <div class="event-buttons">
         <button @click="addEvent" class="event-btn">Add event &nbsp; </button>
@@ -50,7 +41,7 @@
           <div v-for="day in days" class="grid-item-days">{{ day }}</div>
         </div>
         <div class="grid-container-events">
-          <div v-for="index in 7*24" class="grid-item-events"></div>
+          <div v-for="index in 7*hoursShown" class="grid-item-events"></div>
           <EventCard v-for="event in events" :key="event.id" :event="event" />
         </div>
       </div>
@@ -107,9 +98,34 @@ export default {
 
     const schedule = this.schedule
 
+    this.$store.dispatch('beginLoading')
     this.$store.dispatch('getSchedule')
+      .then(() => {
+        this.$store.dispatch('stopLoading')
+      })
+
+  },
+  updated() {
+    this.$store.dispatch('updateEarliest', this.sortedTimes[0])
+    this.$store.dispatch('updateLatest', this.sortedTimes[1])
+    this.$store.dispatch('updateHoursShown', this.latest - this.earliest)
   },
   computed: {
+    events() {
+      return this.$store.state.schedule.events
+    },
+    isLoading() {
+      return this.$store.state.loading
+    },
+    hoursShown() {
+      return this.$store.state.hoursShown
+    },
+    earliest() {
+      return this.$store.state.earliest
+    },
+    latest() {
+      return this.$store.state.latest
+    },
     username() {
       return this.$store.state.payload.user.name
     },
@@ -130,6 +146,32 @@ export default {
     },
     toggleEditingEvent() {
       return this.$store.state.toggleEvent === 'Editing'
+    },
+    scheduleHeight() {
+      return `${30*this.hoursShown}px`
+    },
+    sortedTimes() {
+      const events = this.events
+
+      if(events.length === 0) {
+        return [0,12]
+      }
+
+      let starts = []
+      let ends = []
+
+      events.forEach((event) => {
+        starts.push(event.start.hour)
+        ends.push(event.end.hour)
+      })
+
+      starts.sort(function(a, b){return a-b})
+      ends.sort(function(a, b){return b-a})
+
+      let earliest = starts[0]
+      let latest = ends[0]
+
+      return [earliest, latest]
     }
   }
 }
@@ -248,7 +290,7 @@ input {
   margin: auto;
   margin-top: 5px;
   width: 100%;
-  height: 720px;
+  height: v-bind('scheduleHeight');
   z-index: 0;
 }
 

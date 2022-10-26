@@ -1,5 +1,5 @@
 <template>
-  <div class="main-container">
+  <div v-if="!isLoading" class="main-container">
     <h1>Find Free Time</h1>
     <div clas="free-time-content">
       <div class="free-schedule-container">
@@ -7,8 +7,8 @@
           <div class="grid-container-days">
             <div v-for="day in days" class="grid-item-days">{{ day }}</div>
           </div>
-          <div class="grid-container-events">
-            <div v-for="index in 7*24" class="grid-item-events"></div>
+          <div class="free-grid-container-events">
+            <div v-for="index in 7*hoursShown" class="grid-item-events"></div>
             <EventCard v-for="event in events" :key="event.id" :event="event" />
           </div>
         </div>
@@ -16,7 +16,7 @@
 
       <table class="table-container" style="width:450px">
         <tr>
-          <th >Day</th>
+          <th>Day</th>
           <th>Free Periods</th>
         </tr>
         <tr v-for="(period, day) in freePeriods">
@@ -67,7 +67,11 @@ export default {
     const schedule = this.schedule
 
     //Calls for all existing schedules
+    this.$store.dispatch('beginLoading')
     this.$store.dispatch('getAllSchedules')
+      .then(() => {
+        this.$store.dispatch('stopLoading')
+      })
   },
   computed: {
     //Receives and stores all the event objects
@@ -82,6 +86,15 @@ export default {
       })
       
       return events
+    },
+    hoursShown() {
+      return this.$store.state.hoursShown
+    },
+    isLoading() {
+      return this.$store.state.loading
+    },
+    scheduleHeight() {
+      return `${30*this.hoursShown}px`
     },
     //Takes the event objects and finds the free periods in each day of the week
     freePeriods() {
@@ -246,6 +259,17 @@ th {
 .free-grid-container {
   box-shadow: 0px 0px 2px #36454F;
   width: inherit;
+}
+
+.free-grid-container-events {
+  display: grid;
+  grid-template-columns: repeat(7, 1fr);
+  background-color:;
+  margin: auto;
+  margin-top: 5px;
+  width: 100%;
+  height: v-bind('scheduleHeight');
+  z-index: 0;
 }
 
 .schedule {

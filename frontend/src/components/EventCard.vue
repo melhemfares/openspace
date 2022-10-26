@@ -2,6 +2,7 @@
   <div @dblclick="deleteEvent" v-if="event" class="event-card" :key="compKey">
     <div class="event-card-title">{{ event.title }}</div>
     <div>{{ cardTimeStart }} - {{ cardTimeEnd }}</div>
+    <div>{{ cardSort }}</div>
   </div>
 </template>
 
@@ -17,7 +18,9 @@ export default {
   },
   data() {
     return {
-      compKey: 0
+      compKey: 0,
+      earliestTime: 24,
+      latestTime: 0
     }
   },
   methods: {
@@ -42,12 +45,18 @@ export default {
     }
   },
   computed: {
+    earliest() {
+      return this.$store.state.earliest
+    },
+    latest() {
+      return this.$store.state.latest
+    },
     cardHeight() {
       return `${(parseInt(this.event.end.hour) * 60 + parseInt(this.event.end.minute) 
       - (parseInt(this.event.start.hour) * 60 + parseInt(this.event.start.minute)))/2}px`
     },
     cardYPosition() {
-      return `${(parseInt(this.event.start.hour) * 60 + parseInt(this.event.start.minute))/2}px`
+      return `${(parseInt(this.event.start.hour) * 60 + parseInt(this.event.start.minute))/2 - (this.earliest)*30}px`
     },
     cardXPosition() {
       const XPosition = 100
@@ -78,6 +87,10 @@ export default {
       let startHour = parseInt(event.start.hour)
       let startMinute = event.start.minute
 
+      if(startHour < this.earliest) {
+        this.$store.dispatch('updateEarliest', startHour)
+      }
+
       if(startHour < 12) {
         suffix = 'AM'
 
@@ -100,6 +113,10 @@ export default {
       let endHour = parseInt(event.end.hour)
       let endMinute = event.end.minute
 
+      if(endHour > this.latest) {
+        this.$store.dispatch('updateLatest', endHour)
+      }
+
       if(endHour < 12) {
         suffix = 'AM'
       } else {
@@ -112,6 +129,12 @@ export default {
 
       return `${endHour}:${endMinute}${suffix}`
     },
+    // cardSort() {
+
+    //   const event = this.event
+
+    //   console.log(event)
+    // },
   }
 }
 </script>
