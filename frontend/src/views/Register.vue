@@ -37,6 +37,8 @@
 </template>
 
 <script>
+import NProgress from 'nprogress'
+
 export default {
   data() {
     return {
@@ -54,12 +56,15 @@ export default {
     onSubmit() {
       const user = this.user
       
+      NProgress.start()
       if(user.password != this.repeatPassword) {
         this.msg = 'Passwords do not match'
+        NProgress.done()
       } else {
         this.$store.dispatch('createUser', user)
           .then(() => {
             this.msg = this.$store.state.msg
+            NProgress.done()
           })
           .catch(error => {
             this.msg = 'Something went wrong'

@@ -1,7 +1,7 @@
 <template>
   <div v-if="!isLoading" class="main-container">
     <h1>Find Free Time</h1>
-    <div clas="free-time-content">
+    <div class="free-time-content">
       <div class="free-schedule-container">
         <div v-if="!toggle" class="schedule">
           <div class="grid-container-days">
@@ -33,6 +33,7 @@
 import AddEvent from '@/components/AddEvent.vue'
 import EventCard from '@/components/EventCard.vue'
 import FreeTimeCard from '@/components/FreeTimeCard.vue'
+import NProgress from 'nprogress'
 
 export default {
   components: {
@@ -68,9 +69,11 @@ export default {
 
     //Calls for all existing schedules
     this.$store.dispatch('beginLoading')
+    NProgress.start()
     this.$store.dispatch('getAllSchedules')
       .then(() => {
         this.$store.dispatch('stopLoading')
+        NProgress.done()
       })
   },
   computed: {

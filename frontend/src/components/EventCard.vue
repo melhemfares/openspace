@@ -1,8 +1,7 @@
 <template>
-  <div @dblclick="deleteEvent" v-if="event" class="event-card" :key="compKey">
+  <div v-if="event" class="event-card" :key="compKey">
     <div class="event-card-title">{{ event.title }}</div>
     <div>{{ cardTimeStart }} - {{ cardTimeEnd }}</div>
-    <div>{{ cardSort }}</div>
   </div>
 </template>
 

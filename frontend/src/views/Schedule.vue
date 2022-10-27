@@ -1,5 +1,4 @@
 <template>
-  <h1>{{ username }}'s Schedule</h1>
   <div class="add-event">
     <AddEvent 
       @wheel.prevent
@@ -28,6 +27,7 @@
   </div>
   <div class="screen-dim" v-if="toggle"></div>
   <div v-if="!isLoading" class="schedule-main">
+    <h1>{{ username }}'s Schedule</h1>
     <div class="schedule-options">
       <div class="event-buttons">
         <button @click="addEvent" class="event-btn">Add event &nbsp; </button>
@@ -54,6 +54,7 @@ import AddEvent from '@/components/AddEvent.vue'
 import EditEvent from '@/components/EditEvent.vue'
 import DisplayEvents from '@/components/DisplayEvents.vue'
 import EventCard from '@/components/EventCard.vue'
+import NProgress from 'nprogress'
 
 export default {
   components: {
@@ -99,11 +100,12 @@ export default {
     const schedule = this.schedule
 
     this.$store.dispatch('beginLoading')
+    NProgress.start()
     this.$store.dispatch('getSchedule')
       .then(() => {
         this.$store.dispatch('stopLoading')
+        NProgress.done()
       })
-
   },
   updated() {
     this.$store.dispatch('updateEarliest', this.sortedTimes[0])
@@ -162,14 +164,14 @@ export default {
 
       events.forEach((event) => {
         starts.push(event.start.hour)
-        ends.push(event.end.hour)
+        ends.push((event.end.hour * 60 + parseInt(event.end.minute))/60)
       })
 
       starts.sort(function(a, b){return a-b})
       ends.sort(function(a, b){return b-a})
 
       let earliest = starts[0]
-      let latest = ends[0]
+      let latest = Math.ceil(ends[0])
 
       return [earliest, latest]
     }

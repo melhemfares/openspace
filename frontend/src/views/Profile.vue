@@ -1,6 +1,6 @@
 <template>
   <h1>‎</h1>
-    <div class="profile-container">
+    <div v-if="!isLoading" class="profile-container">
       <div class="profile-img">
         <img src="blank-pfp.png">
       </div>
@@ -51,6 +51,7 @@
 
 <script>
 import FriendCard from '@/components/FriendCard.vue'
+import NProgress from 'nprogress'
 
 export default {
   components: {
@@ -68,7 +69,13 @@ export default {
   created() {
     this.$store.state.toggle = true
 
+    this.$store.dispatch('beginLoading')
+    NProgress.start()
     this.$store.dispatch('getProfile')
+      .then(() => {
+        this.$store.dispatch('stopLoading')
+        NProgress.done()
+      })
       .catch(error => {
         console.log(error);
       })
@@ -76,7 +83,10 @@ export default {
   computed: {
     profile() {
       return this.$store.state.user.user
-    }
+    },
+    isLoading() {
+      return this.$store.state.loading
+    },
   },
   methods: {
     onSubmit() {

@@ -20,6 +20,8 @@
 </template>
 
 <script>
+import NProgress from 'nprogress'
+
 export default {
   data() {
     return {
@@ -34,9 +36,11 @@ export default {
     onSubmit() {
       const user = this.user
       
+      NProgress.start()
       this.$store.dispatch('login', user)
         .then(() => {
           this.msg = this.$store.state.msg
+          NProgress.done()
         })
         .catch(error => {
           this.msg = 'Something went wrong'
