@@ -33,6 +33,7 @@
         <button @click="addEvent" class="event-btn">Add event &nbsp; </button>
         <button @click="deleteEvent" class="event-btn">Delete event</button>
         <button @click="editEvent" class="event-btn">Edit event</button>
+        <button @click="clearSchedule" class="event-btn">Clear schedule</button>
       </div>
     </div>
     <div class="schedule-container">
@@ -91,6 +92,19 @@ export default {
     editEvent() {
       this.$store.dispatch('toggle')
       this.$store.dispatch('toggleEvent', 'Edit')
+    },
+    clearSchedule() {
+      const confirmDelete = confirm(`Are you sure you want to clear your schedule?`)
+
+      if(confirmDelete) {
+        this.$store.dispatch('clearSchedule')
+          .then(() => {
+            console.log('schedule cleared')
+          })
+          .catch(error => {
+            console.log(error);
+          })
+      }
     }
   },
   created() {

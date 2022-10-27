@@ -7,12 +7,14 @@ const {
   getSchedule,
   addEvent,
   deleteEvent,
-  updateEvent
+  updateEvent,
+  clearSchedule
 } = require('../controllers/schedule')
 
 router.route('/')
   .get(getSchedule)
   .post(addEvent)
+  .delete(clearSchedule)
 
 router.route('/:id')
   .delete(deleteEvent)

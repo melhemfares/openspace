@@ -46,6 +46,13 @@ export default {
       }
     })
   },
+  clearSchedule() {
+    return apiClient.delete(`/schedule`, {
+      headers: {
+        Authorization: 'Bearer ' + Cookies.get('token')
+      }
+    })
+  },
   updateEvent(id, event) {
     return apiClient.patch(`/schedule/${id}`, event, {
       headers: {

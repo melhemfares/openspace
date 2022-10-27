@@ -114,10 +114,30 @@ const updateEvent = async (req, res) => {
   res.status(StatusCodes.OK).json({ schedule })
 }
 
+//Clears entire schedule so you don't have to delete one-by-one
+const clearSchedule = async (req, res) => {
+  const {
+    user: { userId }
+  } = req
+
+  const schedule = await Schedule.findOneAndUpdate(
+    { createdBy: userId },
+    { $set: { events: [] } },
+    { new: true }
+  )
+   
+  if(!schedule) {
+    throw new NotFoundError('Schedule could not be deleted')
+  }
+
+  res.status(StatusCodes.OK).json({ schedule })
+}
+
 module.exports = {
   getAllSchedules,
   getSchedule,
   addEvent,
   deleteEvent,
-  updateEvent
+  updateEvent,
+  clearSchedule
 }

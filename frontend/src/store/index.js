@@ -180,6 +180,15 @@ export default createStore({
           console.log(error)
         })
     },
+    clearSchedule({ commit }) {
+      return EventService.clearSchedule()
+        .then(response => {
+          commit('GET_SCHEDULE', response.data)
+        })
+        .catch(error => {
+          console.log(error)
+        })
+    },
     /*
     Developer note:
 
