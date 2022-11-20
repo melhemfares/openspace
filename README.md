@@ -1,7 +1,7 @@
 
 # OpenSpace
 
-Isn't funny how the hardest part of meeting up is typically finding a time when everyone is free?
+Isn't it funny how the hardest part of meeting up is typically finding a time when everyone is free?
 
 It doesn't have to be this way.
 
