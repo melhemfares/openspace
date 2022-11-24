@@ -60,21 +60,15 @@ export default {
       const day = this.event.day
       let multiplier = 0
 
-      if(this.event.day === 'Monday') {
-        multiplier = 0
-      } else if (day === 'Tuesday') {
-        multiplier = 1
-      } else if (day === 'Wednesday') {
-        multiplier = 2
-      } else if (day === 'Thursday') {
-        multiplier = 3
-      } else if (day === 'Friday') {
-        multiplier = 4
-      } else if (day === 'Saturday') {
-        multiplier = 5
-      } else if (day === 'Sunday') {
-        multiplier = 6
-      } 
+      const multiplierMap = { 'Monday': 0, 
+                              'Tuesday': 1, 
+                              'Wednesday': 2, 
+                              'Thursday': 3, 
+                              'Friday': 4, 
+                              'Saturday': 5, 
+                              'Sunday': 6 }
+
+      multiplier = multiplierMap[this.event.day]
 
       return `${(XPosition * multiplier)}px`
     },

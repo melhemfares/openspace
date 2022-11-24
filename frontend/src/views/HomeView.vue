@@ -13,17 +13,6 @@
       <img src="schedule.png">
     </div>
     <div class="clearfix"></div>
-    <!-- <div class="stats">
-      <div class="num-stats">
-        <span> <b>100</b><br> users registered </span>
-      </div>
-      <div class="num-stats-middle">
-        <span> <b>100</b><br> schedules created </span>
-      </div>
-      <div class="num-stats">
-        <span> <b>100</b><br> free hours found </span>
-      </div>
-    </div> -->
   </div>
 </template>
 
@@ -38,29 +27,6 @@ export default {
   margin-top: 30px;
   height: 125px;
   display: flex;
-}
-
-.num-stats-middle {
-  float: left;
-  width: 33.33%;
-  display: flex;
-  justify-content: center;
-  align-content: center;
-  flex-direction: column;
-  border-radius: 10px;
-  box-shadow: 0px 0px 2px #36454F;
-  margin-inline: 50px;
-}
-
-.num-stats {
-  float: left;
-  width: 33.33%;
-  display: flex;
-  justify-content: center;
-  align-content: center;
-  flex-direction: column;
-  border-radius: 10px;
-  box-shadow: 0px 0px 2px #36454F;
 }
 
 .home {

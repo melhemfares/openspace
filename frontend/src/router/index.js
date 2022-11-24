@@ -5,7 +5,7 @@ import Login from '@/views/Login.vue'
 import Schedule from '@/views/Schedule.vue'
 import FreeTime from '@/views/FreeTime.vue'
 import Profile from '@/views/Profile.vue'
-import NProgress from 'nprogress'
+import Settings from '@/views/Settings.vue'
 
 const routes = [
   {
@@ -39,6 +39,11 @@ const routes = [
     component: Profile
   },
   {
+    path: '/settings',
+    name: 'settings',
+    component: Settings
+  },
+  {
     path: '/logout',
     name: 'logout',
     component: HomeView,
@@ -50,14 +55,5 @@ const router = createRouter({
   history: createWebHistory(process.env.BASE_URL),
   routes
 })
-
-// router.beforeEach(() => {
-//   NProgress.start()
-// })
-
-// router.afterEach(() => {
-//   NProgress.done()
-// })
-
 
 export default router

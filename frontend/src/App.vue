@@ -21,6 +21,7 @@
       </button>
       <div class="dropdown-content">
         <router-link :to="{ name: 'profile'}">Check Profile</router-link>
+        <router-link :to="{ name: 'settings'}">Settings</router-link>
         <router-link @click="logout" :to="{ name: 'logout'}">Sign out</router-link>
       </div>
     </div>
