@@ -302,7 +302,7 @@ input {
 .grid-container-events {
   display: grid;
   grid-template-columns: repeat(7, 1fr);
-  background-color:;
+  background-color: white;
   margin: auto;
   margin-top: 5px;
   width: 100%;
@@ -311,7 +311,7 @@ input {
 }
 
 .grid-container-events:hover {
-  background-color:;
+  background-color: white;
 }
 
 .grid-item-events {

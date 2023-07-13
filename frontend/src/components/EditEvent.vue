@@ -29,6 +29,10 @@
           </div>  
         </div>
 
+        <div class="feedback">
+          {{ msg }}
+        </div>
+
         <div class="add-event-buttons">
           <button class="save" type="submit">Save</button>
           <button class="cancel" @click="closeWindow">Cancel</button>
@@ -65,7 +69,8 @@ export default {
         start: '',
         end: '',
         id: this.event.id
-      }
+      },
+      msg: ''
     }
   },
   methods: {
@@ -88,9 +93,20 @@ export default {
 
       this.$store.dispatch('updateEvent', event)
         .then(() => {
-          this.closeWindow()
+          if (event.title && event.day && event.start.hour && event.start.minute && event.end.hour && event.end.minute) {
+            const time = (event.end.hour * 60 + event.end.minute) - (event.start.hour * 60 + event.start.minute)
+
+            if (time <= 0) {
+              this.msg = 'The start time cannot be later than the end time'
+            } else {
+              this.closeWindow()
+            }
+          } else {
+            this.msg = 'You are missing fields'
+          }
         })
         .catch(error => {
+          this.msg = 'Something went wrong'
           console.log(error);
         })
     },

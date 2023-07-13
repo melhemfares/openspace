@@ -41,8 +41,14 @@ const addEvent = async (req, res) => {
     user: { userId }
   } = req
 
-  if (day === '' || title === '' || start === '' || end === '' || id === '') {
-    throw new BadRequestError('Missing fields')
+  if (day === '' || title === '' || start.hour === '' || start.minute === '' || end.hour === '' || end.minute === '' || id === '') {
+    throw new BadRequestError('You are missing information. Try again')
+  }
+
+  const time = (end.hour * 60 + end.minute) - (start.hour * 60 + start.minute)
+
+  if (time <= 0) {
+    throw new BadRequestError('Start time cannot be later than end time')
   }
 
   const schedule = await Schedule.findOneAndUpdate(
@@ -87,8 +93,14 @@ const updateEvent = async (req, res) => {
     params: { id: eventId }
   } = req
 
-  if (day === '' || title === '' || start === '' || end === '' || id === '') {
-    throw new BadRequestError('Missing fields')
+  if (day === '' || title === '' || start.hour === '' || start.minute === '' || end.hour === '' || end.minute === '' || id === '') {
+    throw new BadRequestError('You are missing information. Try again')
+  }
+
+  const time = (end.hour * 60 + end.minute) - (start.hour * 60 + start.minute)
+
+  if (time <= 0) {
+    throw new BadRequestError('Start time cannot be later than end time')
   }
 
   const deleteEvent = await Schedule.findOneAndUpdate(
