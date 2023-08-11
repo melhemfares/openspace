@@ -58,9 +58,7 @@ Run the client server (terminal #2)
 **Database:** MongoDB
 
 
-## Screenshots
+## Demo
 
-![Homepage](openspace-homepage.png)
-
-![Free Time Finder](openspace-freetime.png)
+https://openspace.onrender.com/
 
