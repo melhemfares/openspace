@@ -3,7 +3,7 @@ import axios from "axios"
 import Cookies from 'js-cookie'
 
 const apiClient = axios.create({
-  baseURL: 'https://openspace-full.onrender.com',
+  baseURL: 'https://openspace-full.onrender.com/api/v1/',
   withCredentials: false,
   headers: {
     Accept: "application/json",
