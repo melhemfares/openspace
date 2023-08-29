@@ -62,3 +62,5 @@ Run the client server (terminal #2)
 
 https://openspace.onrender.com/
 
+(Please note responsive time is painfully slow at the beginning, that's just what happens when you use free tier services I guess)
+
