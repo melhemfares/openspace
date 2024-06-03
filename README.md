@@ -58,7 +58,8 @@ Run the client server (terminal #2)
 **Database:** MongoDB
 
 
-## Demo
+## Screenshots
 
-Currently under maintenance
+![home page](https://github.com/melhemfares/openspace/assets/50529560/4249af24-9692-4ba0-b1ad-cc0308c4eda5)
+![schedule](https://github.com/melhemfares/openspace/assets/50529560/5c655423-d585-4b4b-b252-0efd2a14335a)
 
