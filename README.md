@@ -57,6 +57,10 @@ Run the client server (terminal #2)
 
 **Database:** MongoDB
 
+## Demo
+
+https://openspace.onrender.com/
+(Will take a minute to spin up at first, but should be fine after that)
 
 ## Screenshots
 
